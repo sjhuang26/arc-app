@@ -14,7 +14,6 @@ const StoreContext = React.createContext(null);
 
 export const StoreProvider = ({ children }) => {
   const store = useLocalStore(createStore);
-  console.log(store);
   return (
     <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
   );

@@ -1,5 +1,16 @@
 export function createServerStore() {
   return {
-    tutors: ['1', '2', '3']
+    tutors: {
+      invalidated: true,
+      data: [],
+      update(data) {
+        console.log('update');
+        this.invalidated = false;
+        this.data = data;
+      },
+      invalidate() {
+        this.invalidated = true;
+      }
+    }
   };
 }
