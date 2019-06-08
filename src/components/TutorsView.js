@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { useStore } from '../stores/root';
 import { Table, Spin } from 'antd';
@@ -10,7 +11,7 @@ function TutorsView() {
     if (store.server.tutors.invalidated) {
       getTutors().then(docs => {
         console.log(docs);
-        updateTutorData(docs.map(doc => doc.data()));
+        updateTutorData(docs.map(doc => ({ id: doc.id, ...doc.data() })));
       });
     }
   });
@@ -30,6 +31,13 @@ function TutorsView() {
       title: 'Grade',
       dataIndex: 'grade',
       key: 'grade'
+    },
+    {
+      title: 'Action',
+      key: 'action',
+      render(text, record) {
+        return <Link to={'/tutors/edit/' + record.id}>Edit</Link>;
+      }
     }
   ];
 
